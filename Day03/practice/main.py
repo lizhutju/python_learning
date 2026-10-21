@@ -4,7 +4,10 @@
 # 3. 统计出现过多少种不同成绩，尝试使用 set。
 # 4. 把成绩统计函数写入 statistics_utils.py，然后从 main.py 中通过 import 调用。
 
-import statistics_utils 
+# 本目录是一个可独立运行的练习版本，因此 statistics_utils.py 也放了一份在这里，
+# 这样直接运行 python3 practice/main.py 不会因为找不到模块而报错。
+
+import statistics_utils
 
 students = [
     {"name": "张三", "score": 85},
@@ -15,16 +18,17 @@ students = [
 
 
 def filter_students(students, threshold=90):
-    for i in range(len(students)):
-        if students[i]["score"] >= threshold:
-            yield students[i]["name"]
+    # 直接遍历列表项即可，不需要用 range(len(...)) 做索引访问。
+    for student in students:
+        if student["score"] >= threshold:
+            yield student["name"]
 
-print(list(filter_students(students)))
 
 def sort_students(students):
-    return sorted(students,key=lambda x:x["score"],reverse=True)
-
-print(sort_students(students))
+    return sorted(students, key=lambda x: x["score"], reverse=True)
 
 
-print(statistics_utils.count_unique_scores(students))
+if __name__ == "__main__":
+    print(list(filter_students(students)))
+    print(sort_students(students))
+    print(statistics_utils.count_unique_scores(students))
